@@ -8,6 +8,8 @@ def MainMenu():
     a=int(input("What would you like to do today."))
     if(a==1):
         Register()
+    elif(a==2):
+        Login()
     elif(a==3):
         return
 
@@ -43,6 +45,26 @@ def Register():
     print("Registration Successful")
 
     
+def Login():
+    print("Login to your account")
+    Account=input("Enter your account number")
+    if(Account not in UserData):
+        print("Account not found. Please register first")
+        return
     
+    while True:
+        try:
+            Pin=int(input("Please enter your pin"))
+            if Pin==UserData[Account]["pin"]:
+                print("Login Successful")
+                AccountMenu()
+                break
+            else:
+                print("Incorrect pin try again.")
+        except ValueError:
+            print("Invalid Pin try again")
+
+def AccountMenu():
+    pass
 
 MainMenu()
