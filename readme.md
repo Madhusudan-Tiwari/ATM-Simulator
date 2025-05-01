@@ -16,10 +16,10 @@ It includes account registration, PIN-protected login, and basic input validatio
   - PIN-authenticated access to accounts
   - Graceful error handling for wrong or invalid inputs
 
-- [ ] **Account Menu** (Coming Soon)
+- [x] **Account Menu**
   - Balance check
   - Deposit & withdrawal
-  - Logout & exit options
+  - Logout & return to main menu
 
 ---
 
