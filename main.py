@@ -1,4 +1,18 @@
-UserData={}
+import json
+import os
+
+def load_data():
+    if os.path.exists("users.json"):
+        with open("users.json", "r") as f:
+            return json.load(f)
+    return {}
+
+def save_data(data):
+    with open("users.json", "w") as f:
+        json.dump(data, f)
+
+UserData = load_data()
+
 def MainMenu():
     print("Welcome to ATM.")
     print("1. Register")
@@ -14,13 +28,14 @@ def MainMenu():
         return
 
 def Register():
+    global UserData
     while(True):
         NewUser=input("Please enter the account number:")
         if(NewUser in UserData):
             print("User already exists please enter another account number")
         else:
             break
-    
+
     while(True):
         try:
             pin=int(input("Please set a 4 digit pin:"))
@@ -30,7 +45,7 @@ def Register():
                 break
         except ValueError:
             print("Please enter a valid 4 digit pin")
-    
+
     while True:
         try:
             InitialDeposit = float(input("Please set the initial deposit amount: "))
@@ -41,16 +56,14 @@ def Register():
         except ValueError:
             print("Invalid amount. Please enter a valid number.")
 
-    UserData[NewUser]={"pin":pin,"balance":InitialDeposit}
+    UserData[NewUser] = {"pin": pin, "balance": InitialDeposit}
+    save_data(UserData)
     print("Registration Successful")
 
-    
 def Login():
-    print("Login to your account")
     Account=input("Enter your account number")
     if(Account not in UserData):
         print("Account not found. Please register first")
-        print(UserData)
         return
 
     while True:
@@ -82,6 +95,7 @@ def AccountMenu(Account):
             elif c==3:
                 DepositMoney(Account)
             elif c==4:
+                save_data(UserData)
                 return
         except ValueError:
             print("Please enter a valid choice")
@@ -101,7 +115,7 @@ def WithdrawMoney(Account):
                 UserData[Account]["balance"]-=Amount
                 print("Amount withdrawn successfully")
                 print("You now have ",UserData[Account]["balance"], "left in your account.")
-        
+                break
         except ValueError:
             print("Please enter a valid amount")
 
@@ -113,8 +127,9 @@ def DepositMoney(Account):
                 print("Invalid amount unable to deposit")
             else:
                 UserData[Account]["balance"]+=Deposit
+                print("Amount deposited successfully")
+                break
         except ValueError:
             print("Please enter a valid amount")
-
 
 MainMenu()
