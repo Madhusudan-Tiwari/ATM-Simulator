@@ -35,9 +35,9 @@ A basic command-line ATM Simulator built in Python. It supports account registra
 ```bash
 python main.py
 
----
+```
 
-🚀 Future Goals
+## 🚀 Future Goals
  - Enhance Security: Implement encryption for storing sensitive data like PINs.
 
  - User Transactions History: Track and display user transaction history (deposits and withdrawals).
